@@ -5,23 +5,27 @@
 'use strict';
 
 var React = require('react/addons');
-var Twitter = require('twitter-js-client').Twitter;
-var config = {
-  "consumerKey": "pFtPOLUXBXDtPHokigyXN9UAT",
-  "consumerSecret": "FlGNi9fhU2q3Ucfi5M9czBraY3QxEkPflLntLJgrBjA0ecMpon",
-  "accessToken": "978792919-URT380OU0ofxqomr8hUPXOxgoJAMRqUODAGQEdoQ",
-  "accessTokenSecret": "4Gx37DpzwwVcBszGP51hUwegmuFnSsxUZ9IbuizUbbfMW",
-  "callBackUrl": "{callBackUrl}"
-};
-var error = function (err, response, body) {
-  console.log('ERROR [%s]', err);
-};
-var success = function (data) {
-  console.log('Data [%s]', data);
-};
 
-var twitter = new Twitter(config);
-var a = twitter.getMentionsTimeline({count: 10},  error, success);
+var OAuth = require('oauth');
+var oauth = new OAuth.OAuth(
+  'https://api.twitter.com/oauth/request_token',
+  'https://api.twitter.com/oauth/access_token',
+  'pFtPOLUXBXDtPHokigyXN9UAT',
+  'FlGNi9fhU2q3Ucfi5M9czBraY3QxEkPflLntLJgrBjA0ecMpon',
+  '1.0A',
+  null,
+  'HMAC-SHA1'
+);
+
+oauth.get(
+  'https://api.twitter.com/1.1/search/tweets.json?q=%23Russia&result_type=recent',
+  '978792919-URT380OU0ofxqomr8hUPXOxgoJAMRqUODAGQEdoQ', //test user token
+  '4Gx37DpzwwVcBszGP51hUwegmuFnSsxUZ9IbuizUbbfMW', //test user secret
+  function (e, data, res){
+    if (e) console.error(e);
+    console.log(JSON.parse(data));
+  });
+
 var ReactTransitionGroup = React.addons.TransitionGroup;
 
 // Export React so the devtools can find it
@@ -30,7 +34,6 @@ var ReactTransitionGroup = React.addons.TransitionGroup;
 var MainScene = require('./Main_scene.jsx');
 var TwitStore = require('../stores/TwitStore');
 
-// CSS
 require('../../styles/reset.css');
 require('../../styles/main.css');
 

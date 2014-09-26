@@ -12,8 +12,8 @@
   "dependencies": {
     "browserify-fs": "^1.0.0",
     "flux": "^2.0.1",
-    "react": "~0.11.2",
-    "twitter-js-client": "~0.0.5"
+    "oauth": "^0.9.12",
+    "react": "~0.11.2"
   },
   "devDependencies": {
     "grunt": "~0.4.5",
