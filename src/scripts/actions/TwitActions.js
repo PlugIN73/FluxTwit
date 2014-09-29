@@ -1,13 +1,20 @@
 var TwitDispatcher = require('../dispatcher/TwitDispatcher');
+var TwitConstants = require('../constants/TwitConstants');
 
 var TwitActions = {
 
-  create: function(text) {
+  create: function(twits) {
     TwitDispatcher.handleViewAction({
-      actionType: "TWIT_CREATE",
-      text: text
+      actionType: TwitConstants.CREATE_TWITS,
+      twits: twits
     });
   },
+
+  clearAll: function() {
+    TwitDispatcher.handleViewAction({
+      actionType: TwitConstants.CLEAR_TWITS
+    });
+  }
 };
 
 module.exports = TwitActions;

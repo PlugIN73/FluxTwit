@@ -13,11 +13,9 @@ var Twit = React.createClass({
     return (
       <li key={twit.id}>
        <div className="view">
-         <input className="toggle" type="checkbox" />
          <label onDoubleClick={this._onDoubleClick}>
            {twit.text}
          </label>
-         <button className="destroy" onClick={this._onDestroyClick} />
        </div>
      </li>
     );

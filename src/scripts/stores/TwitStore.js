@@ -5,15 +5,20 @@ var merge = require('react/lib/merge');
 
 var CHANGE_EVENT = 'change';
 
-var _twits = {};
+var _twits = [];
 
-function create(text) {
-  var id = (+new Date() + Math.floor(Math.random() * 999999)).toString(36);
-  _twits[id] = {
-    id: id,
-    text: text
-  };
-}
+function create(twits) {
+  for (var i = 0; i < twits.length; i++) {
+    _twits[i] = {
+      id: i,
+      text: twits[i].text
+    };
+  }
+};
+
+function clearAll(twits) {
+  _twits.length = 0;
+};
 
 var TwitStore = merge(EventEmitter.prototype, {
   getAll: function() {
@@ -35,15 +40,16 @@ var TwitStore = merge(EventEmitter.prototype, {
 
 TwitDispatcher.register(function(payload) {
   var action = payload.action;
-  var text;
+  var twits = action.twits;
 
   switch(action.actionType) {
-    case TwitConstants.TWIT_CREATE:
-      text = action.text.trim();
-      console.log(text);
-      if (text !== '') {
-        create(text);
+    case TwitConstants.CREATE_TWITS:
+      if (twits && twits.length > 0) {
+        create(twits);
       }
+      break;
+    case TwitConstants.CLEAR_TWITS:
+      clearAll();
       break;
     default:
       return true;

@@ -1,5 +1,6 @@
 var keyMirror = require('react/lib/keyMirror');
 
 module.exports = keyMirror({
-  TWIT_CREATE: null,
+  CREATE_TWITS: null,
+  CLEAR_TWITS: null,
 });
